@@ -11,7 +11,8 @@ const courseSchema = new mongoose.Schema({
     name: String,
     creator: String,
     publishedDate: {type: Date, default: Date.now}, 
-    isPublished: Boolean
+    isPublished: Boolean,
+    rating: Number
 
 })
 
@@ -22,9 +23,10 @@ async function createCourse() {
 
     const course = new Course({
 
-        name: 'Java',
-        creator: 'Navin reddy', 
-        isPublished: true
+        name: 'C++',
+        creator: 'Sanket sir', 
+        isPublished: true,
+        rating: 4.9
     
     })
     
@@ -32,4 +34,25 @@ async function createCourse() {
     console.log(result);
 }
 
-createCourse()
+
+// Rating 0 to 5
+
+// createCourse()
+
+// eq (equal)
+// gt (greater than)
+// gte (greater than and equal to)
+// lt  (less than)
+// lte (less than and equal to)
+
+
+// in
+// not in
+
+async function getCourses() {
+
+    const courses = await Course.find({rating: {$in: [4.5, 4.9]}}).select({name: 1, publishedDate: 1}).sort({name: 1})
+    console.log(courses);
+}
+
+getCourses()
